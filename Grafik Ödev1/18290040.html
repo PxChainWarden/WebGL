@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <meta charset="utf-8"/>
+    <style>
+        .slider {
+            -webkit-appearance: none;
+            width: 20%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.5;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+    </style> 
+    <body>
+        <canvas id = "glcanvas" width="512" height="512"></canvas>
+        <div class="slidecontainer">
+            Rotate
+            <input type="range" min="0" max="1130" value="0" class="slider" id="myRange">
+        </div>
+        <div class="slidecontainer">
+            R
+            <input type="range" min="0" max="255" value="0" class="slider" id="R">
+        </div>
+        <div class="slidecontainer">
+            G
+            <input type="range" min="0" max="255" value="0" class="slider" id="G">
+        </div>
+        <div class="slidecontainer">
+            B
+            <input type="range" min="0" max="255" value="0" class="slider" id="B">
+        </div>
+        <div class="slidecontainer">
+            Size
+            <input type="range" min="0" max="100" value="20" class="slider" id="scale">
+        </div>
+        <input type="radio" id="A" name="gender" value="1">
+        <label for="A">A</label><br>
+        <input type="radio" id="Rrrrrr" name="gender" value="0">
+        <label for="Rrrrrr">R</label><br>
+    </body>
+    <script id = "vertex-shader" type = "x-shader/x-vertex">
+        attribute vec4 vPosition;
+        uniform vec4 vTranslation;
+        uniform vec4 vScale;
+        uniform float theta;
+        void main()
+        {
+            gl_Position.x = ((cos(theta)*vPosition.x) - (sin(theta) * vPosition.y)) * vScale.x + vTranslation.x;
+            gl_Position.y = ((sin(theta)* vPosition.x) + (cos(theta) * vPosition.y)) * vScale.y + vTranslation.y;
+            gl_Position.z = 0.0;
+            gl_Position.w = 1.0;
+        }
+    </script>
+    <script id = "fragment-shader" type = "x-shader/x-fragment">
+        precision mediump float;
+        uniform vec4 color;
+
+        void main()
+        {
+            gl_FragColor = color;
+        }
+    </script>
+    <script src = "18290040.js"></script>
+</html>
